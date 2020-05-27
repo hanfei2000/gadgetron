@@ -1,0 +1,19 @@
+todo 1: 
+
+reset the siemens_to_ismrmrd config file 
+get RadTseTrajGadget::num_radial_spokes from somewhere else other than h.encoding[0].encodedSpace.matrixSize.y;
+revert back the changes made in GridedReconGadget
+
+todo 2:
+
+todo 3:
+
+todo 4:
+echo-sharing generation in the RadTseTrajGadget function 
+
+todo 6:
+mapping routines
+
+lower priority
+testing the dicom generation
+image array scaling

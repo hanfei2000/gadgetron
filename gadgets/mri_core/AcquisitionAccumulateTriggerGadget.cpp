@@ -171,17 +171,38 @@ namespace Gadgetron {
         auto buckets   = std::map<unsigned short, AcquisitionBucket>{};
         auto trigger   = get_trigger(*this);
 
+        //hanfei
+        std::vector<std::map<unsigned short, AcquisitionBucket>> bucket_array;
+        bucket_array.resize(3);
+        std::vector<std::vector<Core::Waveform>> waveform_array;
+        waveform_array.resize(3);
+        std::vector<size_t> trigger_array;
+        trigger_array.push_back(312);
+        trigger_array.push_back(312);
+        trigger_array.push_back(312);
+        
+        
         for (auto message : in) {
             if (Core::holds_alternative<Core::Waveform>(message)) {
                 waveforms.emplace_back(std::move(Core::get<Core::Waveform>(message)));
                 continue;
             }
-
+            
             auto& acq = Core::get<Core::Acquisition>(message);
             if (is_noise(acq))
                 continue;
             auto head = std::get<ISMRMRD::AcquisitionHeader>(acq);
+            int curSlc = head.idx.slice;
 
+            //hanfei
+            unsigned short sorting_index = get_index(head, sorting_dimension);
+            AcquisitionBucket& bucket = bucket_array.at(curSlc)[sorting_index];
+            add_acquisition(bucket, std::move(acq));
+            trigger_array[curSlc] = trigger_array[curSlc] - 1;
+
+            if (trigger_array[curSlc] == 0)
+                send_data(out, bucket_array.at(curSlc), waveforms);
+/*
             if (trigger_before(trigger, head))
                 send_data(out, buckets, waveforms);
             // It is enough to put the first one, since they are linked
@@ -192,8 +213,10 @@ namespace Gadgetron {
 
             if (trigger_after(trigger, head))
                 send_data(out, buckets, waveforms);
+*/
         }
-        send_data(out,buckets,waveforms);
+        //hanfei
+        //send_data(out,buckets,waveforms);
     }
     GADGETRON_GADGET_EXPORT(AcquisitionAccumulateTriggerGadget);
 

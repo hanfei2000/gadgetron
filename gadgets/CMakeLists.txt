@@ -27,6 +27,7 @@ else ()
   message("Cuda NOT found, NOT compiling gpu accelerated gadgets")
 endif()
 
+add_subdirectory(radtse)   # hanfei
 add_subdirectory(spiral)
 add_subdirectory(grappa)
 
