@@ -1,19 +1,14 @@
-todo 1: 
+1. radial recon         ... done
 
-reset the siemens_to_ismrmrd config file 
-get RadTseTrajGadget::num_radial_spokes from somewhere else other than h.encoding[0].encodedSpace.matrixSize.y;
-revert back the changes made in GridedReconGadget
+2. undersampled recon   ... done
 
-todo 2:
+3. echo-sharing recon   ... done
 
-todo 3:
+4. mapping
+    4.1 buffer, acquisition trigger
+    4.2 mapping routines
+    4.3 dicom output
 
-todo 4:
-echo-sharing generation in the RadTseTrajGadget function 
+5. gradient calibration
 
-todo 6:
-mapping routines
-
-lower priority
-testing the dicom generation
-image array scaling
+6. grappa

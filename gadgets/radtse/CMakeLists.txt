@@ -1,6 +1,9 @@
 
-set(RADTSE_HEADER_FILES RadTseTrajGadget.h gadgetron_radtse_export.h)
-set(RADTSE_SRC_FILES RadTseTrajGadget.cpp)
+set(RADTSE_HEADER_FILES RadTseTrajGadget.h gadgetron_radtse_export.h 
+                        RadTseEchoShareGadget.h RadTseTools.h) 
+
+set(RADTSE_SRC_FILES RadTseTrajGadget.cpp RadTseEchoShareGadget.cpp 
+                     RadTseTools.cpp)
 
 add_library(gadgetron_radtse SHARED ${RADTSE_HEADER_FILES} ${RADTSE_SRC_FILES})
 

@@ -5,7 +5,7 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "(gdb) Launch",
+            "name": "gadgetron server",
             "type": "cppdbg",
             "request": "launch",
             "program": "/usr/local/bin/gadgetron",
@@ -13,7 +13,7 @@
             "stopAtEntry": false,
             "cwd": "/home/hanfei/recon/debug/",
             "environment": [],
-            "externalConsole": true,
+            "externalConsole": false,
             "MIMode": "gdb",
             "setupCommands": [
                 {
