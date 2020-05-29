@@ -39,10 +39,6 @@ namespace Gadgetron {
 
         GDEBUG(" Sampling Specs: %d spokes, %d samples per spoke, etl: %d, %d shots", num_radial_spokes, num_samples_per_spoke, num_echo_train_length, num_shots);
         
-        //other wip parameters ...
-        //radial_reordering = h.userParameters->userParameterLong[0].value;
-        //GDEBUG("Radial Reordering (wipalFree[0]):             %d\n", radial_reordering);
-
         return GADGET_OK;
     }
 
@@ -75,14 +71,16 @@ namespace Gadgetron {
         size_t view = 128;
         double angle_offset = 0.0;
         
-        //calculate_trajectory_and_dcf(col, view, angle_offset);
-        //
-        
         //temporary 
         std::vector<size_t> traj_dims = {3,col};
         hoNDArray < float > traj_and_dcf_single_line = hoNDArray<float>(traj_dims);
 
-        double cur_theta = (hdr->idx.kspace_encode_step_1) * M_PI / num_radial_spokes;
+        double dRange;
+        if(num_radial_spokes%2)
+            dRange = M_PI*2;
+        else
+            dRange = M_PI;    
+        double cur_theta = (hdr->idx.kspace_encode_step_1) * dRange / num_radial_spokes;
         float kx_pos, ky_pos;
         for (int col = -num_samples_per_spoke/2; col < num_samples_per_spoke/2; col++){
             int idx = col+num_samples_per_spoke/2;
@@ -119,21 +117,6 @@ namespace Gadgetron {
 
         return GADGET_OK;
     }
-
-    int 
-    RadTseTrajGadget::calculate_trajectory_and_dcf(unsigned int col, unsigned short view, double angle_offset)
-    {   
-        std::vector<size_t> traj_dims = {3,col*view};
-        traj_and_dcf = hoNDArray<float>(traj_dims);
-
-        for (size_t i = 0; i < col*view; i++){
-            traj_and_dcf[i*3] = float(i + .0);
-            traj_and_dcf[i*3+1] = float(i + 0.1);
-            traj_and_dcf[i*3+2] = float(1 + 0.2);
-        }
-
-        return 1;
-    } 
 
     GADGET_FACTORY_DECLARE(RadTseTrajGadget)
 }

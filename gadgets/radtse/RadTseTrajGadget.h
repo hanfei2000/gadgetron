@@ -39,7 +39,6 @@ namespace Gadgetron {
         long num_samples_per_spoke;
         long num_echo_train_length;
         long num_shots;
-        int calculate_trajectory_and_dcf(unsigned int col, unsigned short view, double angle_offset);
         hoNDArray<float> traj_and_dcf;
     };
 }
